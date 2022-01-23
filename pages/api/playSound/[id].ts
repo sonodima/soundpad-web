@@ -11,7 +11,7 @@ export default async function handler(
 ) {
   if (!soundpad.connected) {
     console.log("Attempting connection to Soundpad pipe");
-    const result = await soundpad.connect();
+    const result = await soundpad.connectAsync();
     console.log(`Connection result: ${result}`);
 
     if (!result) {

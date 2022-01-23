@@ -8,7 +8,7 @@ class Soundpad {
     this.connected = false;
   }
 
-  connect(): Promise<boolean> {
+  connectAsync(): Promise<boolean> {
     return new Promise((resolve) => {
       this._pipe = net.createConnection(
         "\\\\.\\pipe\\sp_remote_control",
@@ -42,24 +42,31 @@ class Soundpad {
     });
   }
 
-  private request(request: string) {
-    if (this._pipe == undefined) {
+  private async requestAsync(request: string): Promise<Buffer | undefined> {
+    if (!this.connected || this._pipe == undefined) {
       console.error("Pipe is not ready");
-      return;
+      return undefined;
     }
 
-    this._pipe.write(request);
-    var response: Buffer = this._pipe.read();
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(undefined), 1000);
 
-    console.log(response);
+      this._pipe?.write(request);
+      this._pipe?.once("data", (buffer) => {
+        resolve(buffer);
+      });
+    });
   }
 
-  getSounds() {
-    const response = this.request("GetSoundlist()");
+  async getSoundsAsync() {
+    const response = await this.requestAsync("GetSoundlist()");
+    if (response != undefined) {
+      console.log(response);
+    }
   }
 
   playSound(id: number) {
-    this.request(`DoPlaySound(${id})`);
+    this.requestAsync(`DoPlaySound(${id})`);
   }
 }
 
