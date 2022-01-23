@@ -1,44 +1,24 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 import Category from "../models/Category";
-import Sound from "../models/Sound";
+import GetSoundsRes from "../models/GetSoundsRes";
 
 import CategoryViewer from "../components/CategoryViewer";
 
-const sounds: Sound[] = [
-  {
-    title: "Sample Sound",
-    duration: "0:01",
-    id: 1,
-  },
-  {
-    title: "Fart",
-    duration: "0:02",
-    id: 2,
-  },
-  {
-    title: "Burp",
-    duration: "0:02",
-    id: 3,
-  },
-];
-
-const categories: Category[] = [
-  {
-    name: "First",
-    sounds: sounds,
-  },
-  {
-    name: "Second",
-    sounds: sounds,
-  },
-  {
-    name: "Third",
-    sounds: sounds,
-  },
-];
-
 export default function Home() {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    fetch("api/getSounds")
+      .then((res) => res.json())
+      .then((data: GetSoundsRes) => {
+        if (categories != undefined) {
+          setCategories(data.categories!);
+        }
+      });
+  }, []);
+
   return (
     <div className="bg-gray-100 dark:bg-black">
       <Head>
@@ -53,7 +33,9 @@ export default function Home() {
 
         <CategoryViewer
           categories={categories}
-          onSoundPressed={(sound) => console.log(sound)}
+          onSoundPressed={(sound) => {
+            fetch(`api/playSound/${sound.id}`);
+          }}
         />
       </main>
     </div>

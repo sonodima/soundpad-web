@@ -1,4 +1,30 @@
 import net from "net";
+import { type } from "os";
+
+import xml from "xml2js";
+
+type NativeSound = {
+  index: number;
+  url: string;
+  artist: string;
+  title: string;
+  duration: string;
+  addedOn: string;
+  lastPlayedOn: string;
+  playCount: number;
+};
+
+type NativeSoundParent = {
+  $: NativeSound;
+};
+
+type NativeSoundlist = {
+  Sound: NativeSoundParent[];
+};
+
+type SoundlistResponse = {
+  Soundlist: NativeSoundlist;
+};
 
 class Soundpad {
   private _pipe?: net.Socket;
@@ -61,7 +87,11 @@ class Soundpad {
   async getSoundsAsync() {
     const response = await this.requestAsync("GetSoundlist()");
     if (response != undefined) {
-      console.log(response);
+      const parsed = (await xml.parseStringPromise(
+        response
+      )) as SoundlistResponse;
+
+      return parsed.Soundlist.Sound;
     }
   }
 
