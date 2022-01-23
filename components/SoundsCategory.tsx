@@ -1,5 +1,6 @@
 import Category from "../models/Category";
 import Sound from "../models/Sound";
+
 import SoundButton from "./SoundButton";
 
 type Props = {
@@ -15,7 +16,7 @@ const SoundsCategory = (props: Props) => {
     >
       <h3
         className="text-xl px-1 mb-4 font-bold text-gray-400
-                     dark:text-zinc-500"
+                   dark:text-zinc-500"
       >
         {props.category.name}
       </h3>

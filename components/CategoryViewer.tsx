@@ -12,7 +12,7 @@ const CategoryViewer = (props: Props) => {
   return (
     <div
       className="flex flex-row flex-grow overflow-x-scroll snap-mandatory snap-x
-               md:flex-col md:snap-y md:overflow-x-hidden"
+                 md:flex-col md:snap-y md:overflow-x-hidden"
     >
       {props.categories.map((category) => (
         <SoundsCategory

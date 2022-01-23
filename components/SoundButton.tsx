@@ -17,7 +17,7 @@ const SoundButton = (props: Props) => {
       </p>
       <p
         className="self-end font-medium leading-3 select-none text-gray-400 
-                 dark:text-zinc-400"
+                   dark:text-zinc-400"
       >
         {props.duration}
       </p>
