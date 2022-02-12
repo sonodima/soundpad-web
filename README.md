@@ -18,7 +18,7 @@ This project aims to simplify this by offering a remote control interface usable
 
 ## Brief Description
 
-Soundpad Web uses Soundpad's piped Remote Control Interface to send control commands to the program.<br>
+Soundpad Web uses Soundpad's piped [Remote Control Interface](https://www.leppsoft.com/soundpad/en/rc/) to send control commands to the program.<br>
 Sounds are automatically fetched from Soundpad and get categorized by their parent directories.
 
 ### Extra
