@@ -5,6 +5,7 @@ import Category from "../models/Category";
 import GetSoundsRes from "../models/GetSoundsRes";
 
 import CategoryViewer from "../components/CategoryViewer";
+import ControlView from "../components/ControlView";
 
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -30,6 +31,8 @@ export default function Home() {
         <h1 className="text-3xl font-bold p-5 text-black dark:text-white">
           Soundpad
         </h1>
+
+        <ControlView />
 
         <CategoryViewer
           categories={categories}
