@@ -98,6 +98,14 @@ class Soundpad {
   playSound(id: number) {
     this.requestAsync(`DoPlaySound(${id})`);
   }
+
+  stopSound() {
+    this.requestAsync(`DoStopSound()`);
+  }
+
+  pauseSound() {
+    this.requestAsync(`DoTogglePause()`);
+  }
 }
 
 let soundpad = new Soundpad();
